@@ -1,26 +1,25 @@
 <?php
-include("header.html");
+include("header2.php");
 ?>
- <div class="container px-4 px-lg-5">
-                <div class="row gx-4 gx-lg-5 justify-content-center">
-                    <div class="col-lg-8 col-xl-6 text-center">
-                        <h2 class="mt-0"> با موفقیت وارد حساب کاربری خود شدید</h2>
-                        <hr class="divider" />
-                        <p class="text-muted mb-5"> خوش آمدید</p>
-                    </div>
-</div>
-</div>
 <?php
-if(isset($_POST["username"]) && !empty($_POST["username"])
- && isset($_POST["email"])  && !empty($_POST["email"])
- && isset($_POST["passw"])  && !empty($_POST["passw"])
- && isset($_POST["repassw"])  && !empty($_POST["repassw"]))
-{
-    $username=$_POST["username"];
-    $email=$_POST["email"];
+
+    $username=$_POST["username1"];
     $password=$_POST["passw"];
-    $repassword=$_POST["repassw"];
-}
+    $c=mysqli_connect("localhost","root","","site");
+    $result=mysqli_query($c," SELECT * FROM `user` WHERE 
+    `username` = '$username' AND `password` = '$password';");
+    $row=mysqli_fetch_array($result);
+    mysqli_close($c);
+    if ($row) {
+        header("Location: header3.php?msg=success");
+    } else {
+        header("Location: header3.php?msg=error");
+    }
+    exit();
+
+?>
+<?php
+include("footer.html");
 ?>
 
 
